@@ -28,7 +28,7 @@ public class ArrayDeque<T> {
     }
 
     private void resize_smaller() {
-        T[] items2 = (T[]) new Object[items.length/4 + 2];
+        T[] items2 = (T[]) new Object[size + 2];
         int first = nextFirst + 1;
         int index = 1;
         if (first == items.length){
