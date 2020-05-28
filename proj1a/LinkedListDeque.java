@@ -1,8 +1,9 @@
 public class LinkedListDeque<T> {
-    private SList first_sentinel , last_sentinel;
+    private SList first_sentinel;
+    private SList last_sentinel;
     private int size;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         first_sentinel = new SList(null , null , null);
         last_sentinel = new SList(null , null , null);
         first_sentinel.next = last_sentinel;
@@ -10,12 +11,12 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque other){
+    public LinkedListDeque(LinkedListDeque other) {
         first_sentinel = new SList(null , null , null);
         SList pre = first_sentinel;
         SList p = first_sentinel.next;
         SList q = other.first_sentinel.next;
-        while(q != other.last_sentinel){
+        while (q != other.last_sentinel) {
             p = new SList(q.item , null , pre);
             pre = p;
             p = p.next;
@@ -24,34 +25,34 @@ public class LinkedListDeque<T> {
         last_sentinel = new SList(null , null , pre);
     }
 
-    public void addFirst(T i){
+    public void addFirst(T i) {
         SList node = new SList(i , first_sentinel.next , first_sentinel);
         first_sentinel.next.pre = node;
         first_sentinel.next = node;
         size += 1;
     }
 
-    public void addLast(T i){
+    public void addLast(T i) {
         SList node = new SList(i , last_sentinel , last_sentinel.pre);
         last_sentinel.pre.next = node;
         last_sentinel.pre = node;
         size += 1;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return (size == 0);
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
-    public void printDeque(){
-        if(size == 0){
+    public void printDeque() {
+        if (size == 0) {
             System.out.println();
         }else {
             SList p = first_sentinel.next;
-            while(p != last_sentinel){
+            while (p != last_sentinel) {
                 System.out.print(p.item+" ");
                 p = p.next;
             }
@@ -59,10 +60,10 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T removeFirst(){
-        if(size == 0){
+    public T removeFirst() {
+        if (size == 0) {
             return null;
-        }else{
+        }else {
             T p = (T) first_sentinel.next.item;
             first_sentinel.next.next.pre = first_sentinel;
             first_sentinel.next = first_sentinel.next.next;
@@ -71,10 +72,10 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T removeLast(){
-        if(size == 0){
+    public T removeLast() {
+        if (size == 0) {
             return null;
-        }else{
+        }else {
             T p = (T)last_sentinel.pre.item;
             last_sentinel.pre.pre.next = last_sentinel;
             last_sentinel.pre = last_sentinel.pre.pre;
@@ -83,13 +84,13 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T get(int index){
-        if(index > size-1){
+    public T get(int index) {
+        if (index > size-1) {
             return null;
         }
         SList p = first_sentinel.next;
         int i = 0;
-        while(i < index){
+        while (i < index) {
             p = p.next;
             i += 1;
         }
@@ -98,9 +99,9 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index){
-        if(index > size - 1){
+        if (index > size - 1) {
             return null;
-        }else{
+        }else {
             return (T) first_sentinel.next.get(index);
         }
     }
