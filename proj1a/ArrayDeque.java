@@ -15,6 +15,9 @@ public class ArrayDeque<T> {
         T[] items2 = (T[]) new Object[items.length * 2];
         int first = nextFirst + 1;
         int index = 1;
+        if (first == items.length){
+            first = 0;
+        }
         for (int i = 0; i < size; i++) {
             items2[index++] = items[first];
             first = (first + 1) % items.length;
@@ -49,7 +52,7 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        if(size == 0){
+        if (size == 0) {
             System.out.println();
         }
         int first = nextFirst + 1;
@@ -84,7 +87,7 @@ public class ArrayDeque<T> {
         }
 
         int last = nextLast - 1;
-        if(last < 0){
+        if (last < 0) {
             last = items.length - 1;
         }
 
