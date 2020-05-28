@@ -18,6 +18,7 @@ public class ArrayDeque<T> {
             items2[index++] = items[first];
             first = (first+1) % size;
         }
+        items = items2;
         nextFirst = 0;
         nextLast = index;
     }
