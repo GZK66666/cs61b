@@ -18,13 +18,24 @@ public class ArrayDeque<T> {
         if (first == items.length){
             first = 0;
         }
-        for (int i = 0; i < size; i++) {
-            items2[index++] = items[first];
-            first = (first + 1) % items.length;
+        //copy
+//        for (int i = 0; i < size; i++) {
+//            items2[index++] = items[first];
+//            first = (first + 1) % items.length;
+//        }
+        if (nextFirst < nextLast) {
+            System.arraycopy(items , nextFirst+1 , items2 , index , size);
+        }else {
+            if (nextFirst == items.length - 1){
+                System.arraycopy(items , 0 , items2 , index , size);
+            }else {
+                System.arraycopy(items , (nextFirst+1)%items.length , items2 , index , items.length-nextFirst-1);
+                System.arraycopy(items , 0 , items2 , index+items.length - nextFirst - 1 , nextLast);
+            }
         }
         items = items2;
         nextFirst = 0;
-        nextLast = index;
+        nextLast = index + size;
     }
 
     private void resize_smaller() {
@@ -34,13 +45,23 @@ public class ArrayDeque<T> {
         if (first == items.length){
             first = 0;
         }
-        for (int i = 0; i < size; i++) {
-            items2[index++] = items[first];
-            first = (first + 1) % items.length;
+//        for (int i = 0; i < size; i++) {
+//            items2[index++] = items[first];
+//            first = (first + 1) % items.length;
+//        }
+        if (nextFirst < nextLast) {
+            System.arraycopy(items , nextFirst+1 , items2 , index , size);
+        }else {
+            if (nextFirst == items.length - 1){
+                System.arraycopy(items , 0 , items2 , index , size);
+            }else {
+                System.arraycopy(items , (nextFirst+1)%items.length , items2 , index , items.length-nextFirst-1);
+                System.arraycopy(items , 0 , items2 , index+items.length - nextFirst - 1 , nextLast);
+            }
         }
         items = items2;
         nextFirst = 0;
-        nextLast = index;
+        nextLast = index + size;
     }
 
     public void addFirst(T t) {
