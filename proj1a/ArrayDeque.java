@@ -94,6 +94,7 @@ public class ArrayDeque<T> {
 
         nextFirst = first;
         size -= 1;
+        T t = items[first];
 
         double ratio = size / items.length;
         if (ratio < 0.25 && items.length >= 16) {
@@ -101,7 +102,7 @@ public class ArrayDeque<T> {
             resize_smaller();
         }
 
-        return items[first];
+        return t;
     }
 
     public T removeLast() {
@@ -116,6 +117,7 @@ public class ArrayDeque<T> {
 
         nextLast = last;
         size -= 1;
+        T t = items[last];
 
         double ratio = size / items.length;
         if (ratio < 0.25 && items.length >= 16) {
@@ -123,7 +125,7 @@ public class ArrayDeque<T> {
             resize_smaller();
         }
 
-        return items[last];
+        return t;
     }
 
     public int size() {
