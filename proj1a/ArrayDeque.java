@@ -14,39 +14,31 @@ public class ArrayDeque<T> {
         T[] items2 = (T[])new Object[items.length * 2];
         int first = nextFirst+1;
         int index = 1;
-        while(first != nextLast){
-            if(first == items.length){
-                first = 0;
-            }
-            items2[index++] = items[first++];
+        for(int i = 0; i < size; i++){
+            items2[index++] = items[first];
+            first = (first+1) % size;
         }
         nextFirst = 0;
         nextLast = index;
     }
 
     public void addFirst(T t){
-        if(nextFirst == nextLast){
+        if(size == items.length){
             //resize
             resize();
         }
         items[nextFirst] = t;
-        nextFirst -= 1;
-        if(nextFirst < 0){
-            nextFirst = items.length - 1;
-        }
+        nextFirst = (nextFirst-1) % items.length;
         size += 1;
     }
 
     public void addLast(T t){
-        if(nextFirst == nextLast){
+        if(size == items.length){
             //resize
             resize();
         }
         items[nextLast] = t;
-        nextLast += 1;
-        if(nextLast == items.length){
-            nextLast = 0;
-        }
+        nextLast = (nextLast+1) % items.length;
         size += 1;
     }
 
@@ -80,6 +72,7 @@ public class ArrayDeque<T> {
         }
 
         nextFirst = first;
+        size -= 1;
         return items[first];
     }
 
@@ -94,6 +87,7 @@ public class ArrayDeque<T> {
         }
 
         nextLast = last;
+        size -= 1;
         return items[last];
     }
 
