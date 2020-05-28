@@ -1,6 +1,6 @@
-public class LinkedListDeque<Type> {
-    public SList first_sentinel , last_sentinel;
-    public int size;
+public class LinkedListDeque<T> {
+    private SList first_sentinel , last_sentinel;
+    private int size;
 
     public LinkedListDeque(){
         first_sentinel = new SList(null , null , null);
@@ -24,14 +24,14 @@ public class LinkedListDeque<Type> {
         last_sentinel = new SList(null , null , pre);
     }
 
-    public void addFirst(Type i){
+    public void addFirst(T i){
         SList node = new SList(i , first_sentinel.next , first_sentinel);
         first_sentinel.next.pre = node;
         first_sentinel.next = node;
         size += 1;
     }
 
-    public void addLast(Type i){
+    public void addLast(T i){
         SList node = new SList(i , last_sentinel , last_sentinel.pre);
         last_sentinel.pre.next = node;
         last_sentinel.pre = node;
@@ -59,11 +59,11 @@ public class LinkedListDeque<Type> {
         }
     }
 
-    public Type removeFirst(){
+    public T removeFirst(){
         if(size == 0){
             return null;
         }else{
-            Type p = (Type) first_sentinel.next.item;
+            T p = (T) first_sentinel.next.item;
             first_sentinel.next.next.pre = first_sentinel;
             first_sentinel.next = first_sentinel.next.next;
             size -= 1;
@@ -71,11 +71,11 @@ public class LinkedListDeque<Type> {
         }
     }
 
-    public Type removeLast(){
+    public T removeLast(){
         if(size == 0){
             return null;
         }else{
-            Type p = (Type)last_sentinel.pre.item;
+            T p = (T)last_sentinel.pre.item;
             last_sentinel.pre.pre.next = last_sentinel;
             last_sentinel.pre = last_sentinel.pre.pre;
             size -= 1;
@@ -83,7 +83,7 @@ public class LinkedListDeque<Type> {
         }
     }
 
-    public Type get(int index){
+    public T get(int index){
         if(index > size-1){
             return null;
         }
@@ -94,14 +94,14 @@ public class LinkedListDeque<Type> {
             i += 1;
         }
 
-        return (Type)p.item;
+        return (T)p.item;
     }
 
-    public Type getRecursive(int index){
+    public T getRecursive(int index){
         if(index > size - 1){
             return null;
         }else{
-            return (Type) first_sentinel.next.get(index);
+            return (T) first_sentinel.next.get(index);
         }
     }
 }

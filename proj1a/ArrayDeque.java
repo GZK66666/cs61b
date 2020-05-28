@@ -1,17 +1,17 @@
-public class ArrayDeque<Type> {
-    public Type[] items;
-    public int nextFirst , nextLast;
-    public int size;
+public class ArrayDeque<T> {
+    private T[] items;
+    private int nextFirst , nextLast;
+    private int size;
 
     public ArrayDeque(){
-        items = (Type[])new Object[8];
+        items = (T[])new Object[8];
         nextFirst = 0;
         nextLast = 1;
         size = 0;
     }
 
     private void resize(){
-        Type[] items2 = (Type[])new Object[items.length * 2];
+        T[] items2 = (T[])new Object[items.length * 2];
         int first = nextFirst+1;
         int index = 1;
         while(first != nextLast){
@@ -24,7 +24,7 @@ public class ArrayDeque<Type> {
         nextLast = index;
     }
 
-    public void addFirst(Type t){
+    public void addFirst(T t){
         if(nextFirst == nextLast){
             //resize
             resize();
@@ -37,7 +37,7 @@ public class ArrayDeque<Type> {
         size += 1;
     }
 
-    public void addLast(Type t){
+    public void addLast(T t){
         if(nextFirst == nextLast){
             //resize
             resize();
@@ -68,7 +68,7 @@ public class ArrayDeque<Type> {
         System.out.println();
     }
 
-    public Type removeFirst(){
+    public T removeFirst(){
         if(size == 0){
             return null;
         }
@@ -83,7 +83,7 @@ public class ArrayDeque<Type> {
         return items[first];
     }
 
-    public Type removeLast(){
+    public T removeLast(){
         if(size == 0){
             return null;
         }
@@ -101,7 +101,7 @@ public class ArrayDeque<Type> {
         return size;
     }
 
-    public Type get(int index){
+    public T get(int index){
         return items[(nextFirst + index + 1) % items.length];
     }
 }
