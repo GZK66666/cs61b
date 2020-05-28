@@ -11,8 +11,24 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
-    private void resize() {
+    private void resize_bigger() {
         T[] items2 = (T[]) new Object[items.length * 2];
+        int first = nextFirst + 1;
+        int index = 1;
+        if (first == items.length){
+            first = 0;
+        }
+        for (int i = 0; i < size; i++) {
+            items2[index++] = items[first];
+            first = (first + 1) % items.length;
+        }
+        items = items2;
+        nextFirst = 0;
+        nextLast = index;
+    }
+
+    private void resize_smaller() {
+        T[] items2 = (T[]) new Object[items.length/4 + 2];
         int first = nextFirst + 1;
         int index = 1;
         if (first == items.length){
@@ -30,7 +46,7 @@ public class ArrayDeque<T> {
     public void addFirst(T t) {
         if (size == items.length) {
             //resize
-            resize();
+            resize_bigger();
         }
         items[nextFirst] = t;
         nextFirst = ((nextFirst - 1) + items.length) % items.length;
@@ -40,7 +56,7 @@ public class ArrayDeque<T> {
     public void addLast(T t) {
         if (size == items.length) {
             //resize
-            resize();
+            resize_bigger();
         }
         items[nextLast] = t;
         nextLast = (nextLast + 1) % items.length;
@@ -78,6 +94,13 @@ public class ArrayDeque<T> {
 
         nextFirst = first;
         size -= 1;
+
+        double ratio = size / items.length;
+        if (ratio < 0.25 && items.length >= 16) {
+            //resize
+            resize_smaller();
+        }
+
         return items[first];
     }
 
@@ -93,6 +116,13 @@ public class ArrayDeque<T> {
 
         nextLast = last;
         size -= 1;
+
+        double ratio = size / items.length;
+        if (ratio < 0.25 && items.length >= 16) {
+            //resize
+            resize_smaller();
+        }
+
         return items[last];
     }
 

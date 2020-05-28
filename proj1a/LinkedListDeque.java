@@ -11,20 +11,6 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque other) {
-        first_sentinel = new SList(null , null , null);
-        SList pre = first_sentinel;
-        SList p = first_sentinel.next;
-        SList q = other.first_sentinel.next;
-        while (q != other.last_sentinel) {
-            p = new SList(q.item , null , pre);
-            pre = p;
-            p = p.next;
-            q = q.next;
-        }
-        last_sentinel = new SList(null , null , pre);
-    }
-
     public void addFirst(T i) {
         SList node = new SList(i , first_sentinel.next , first_sentinel);
         first_sentinel.next.pre = node;
