@@ -97,6 +97,10 @@ public class ArrayDeque<Type> {
         return items[last];
     }
 
+    public int size(){
+        return size;
+    }
+
     public Type get(int index){
         return items[(nextFirst + index + 1) % items.length];
     }
