@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
             resize();
         }
         items[nextFirst] = t;
-        nextFirst = (nextFirst-1) % items.length;
+        nextFirst = (nextFirst-1+items.lengths) % items.length;
         size += 1;
     }
 
