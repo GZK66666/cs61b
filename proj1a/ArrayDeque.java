@@ -28,42 +28,45 @@ public class ArrayDeque<T> {
     }
 
     private void resize(int capacity){
-        T[] items2 = (T[]) new Object[capacity];
+        T[] newitems = (T[]) new Object[capacity];
 
         int currentFirst = onePlus(nextFirst);
         int currentLast = oneMinus(nextLast);
 
         if (nextFirst < nextLast) {
-            System.arraycopy(items , currentFirst , items2 , 0 , size);
-            nextFirst = items2.length - 1;
-            nextLast = size;
+            int length = currentLast - currentFirst + 1;
+            System.arraycopy(items , currentFirst , newitems , 0 , length);
+            nextFirst = newitems.length - 1;
+            nextLast = length;
         }else {
             int lengthFirst = items.length - currentFirst;
-            System.arraycopy(items , 0 , items2 , 0 , nextLast);
-            System.arraycopy(items , currentFirst , items2 , capacity - lengthFirst , lengthFirst);
+            System.arraycopy(items , 0 , newitems , 0 , nextLast);
+            System.arraycopy(items , currentFirst , newitems , capacity - lengthFirst , lengthFirst);
             nextFirst = capacity - lengthFirst - 1;
         }
-        items = items2;
+        items = newitems;
     }
 
     public void addFirst(T t) {
-        if (size == items.length) {
-            //resize
-            resize(items.length * 2);
-        }
         items[nextFirst] = t;
         nextFirst = oneMinus(nextFirst);
         size += 1;
-    }
 
-    public void addLast(T t) {
         if (size == items.length) {
             //resize
             resize(items.length * 2);
         }
+    }
+
+    public void addLast(T t) {
         items[nextLast] = t;
         nextLast = onePlus(nextLast);
         size += 1;
+
+        if (size == items.length) {
+            //resize
+            resize(items.length * 2);
+        }
     }
 
     public boolean isEmpty() {
