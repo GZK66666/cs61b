@@ -1,4 +1,4 @@
-public class LinkedListDeque<Item> implements Deque<Item>{
+public class LinkedListDeque<Item> implements Deque<Item> {
     private SList first_sentinel;
     private SList last_sentinel;
     private int size;

@@ -1,4 +1,4 @@
-public class ArrayDeque<Item> {
+public class ArrayDeque<Item> implements Deque<Item>{
     private Item[] items;
     private int nextFirst;
     private int nextLast;
@@ -33,20 +33,23 @@ public class ArrayDeque<Item> {
         int currentFirst = onePlus(nextFirst);
         int currentLast = oneMinus(nextLast);
 
-        if (nextFirst < nextLast) {
-            int length = currentLast - currentFirst + 1;
-            System.arraycopy(items , currentFirst , newitems , 0 , length);
-            nextFirst = newitems.length - 1;
-            nextLast = length;
-        }else {
-            int lengthFirst = items.length - currentFirst;
-            System.arraycopy(items , 0 , newitems , 0 , nextLast);
-            System.arraycopy(items , currentFirst , newitems , capacity - lengthFirst , lengthFirst);
-            nextFirst = capacity - lengthFirst - 1;
+        if (!this.isEmpty()){
+            if (currentFirst < currentLast) {
+                int length = currentLast - currentFirst + 1;
+                System.arraycopy(items , currentFirst , newitems , 0 , length);
+                nextFirst = newitems.length - 1;
+                nextLast = length;
+            }else {
+                int lengthFirst = items.length - currentFirst;
+                System.arraycopy(items , 0 , newitems , 0 , nextLast);
+                System.arraycopy(items , currentFirst , newitems , capacity - lengthFirst , lengthFirst);
+                nextFirst = capacity - lengthFirst - 1;
+            }
         }
         items = newitems;
     }
 
+    @Override
     public void addFirst(Item t) {
         items[nextFirst] = t;
         nextFirst = oneMinus(nextFirst);
@@ -58,6 +61,7 @@ public class ArrayDeque<Item> {
         }
     }
 
+    @Override
     public void addLast(Item t) {
         items[nextLast] = t;
         nextLast = onePlus(nextLast);
@@ -69,10 +73,12 @@ public class ArrayDeque<Item> {
         }
     }
 
+    @Override
     public boolean isEmpty() {
         return (size == 0);
     }
 
+    @Override
     public void printDeque() {
         if (size == 0) {
             System.out.println();
@@ -87,6 +93,7 @@ public class ArrayDeque<Item> {
         System.out.println();
     }
 
+    @Override
     public Item removeFirst() {
         if (isEmpty()) {
             return null;
@@ -94,19 +101,20 @@ public class ArrayDeque<Item> {
 
         int currentFirst = onePlus(nextFirst);
         Item t = items[currentFirst];
-
-        double ratio = size / items.length;
-        if (ratio < 0.25 && items.length > 16) {
-            //resize
-            resize(size / 2);
-        }
-
+        items[currentFirst] = null;
         size -= 1;
         nextFirst = currentFirst;
+
+        double ratio = (double)size / items.length;
+        if (ratio < 0.25 && items.length > 16) {
+            //resize
+            resize(items.length / 2);
+        }
 
         return t;
     }
 
+    @Override
     public Item removeLast() {
         if (isEmpty()) {
             return null;
@@ -114,15 +122,15 @@ public class ArrayDeque<Item> {
 
         int currentLast = oneMinus(nextLast);
         Item t = items[currentLast];
-
-        double ratio = size / items.length;
-        if (ratio < 0.25 && items.length >= 16) {
-            //resize
-            resize(size / 2);
-        }
-
+        items[currentLast] = null;
         size -= 1;
         nextLast = currentLast;
+
+        double ratio = (double)size / items.length;
+        if (ratio < 0.25 && items.length >= 16) {
+            //resize
+            resize(items.length / 2);
+        }
 
         return t;
     }
