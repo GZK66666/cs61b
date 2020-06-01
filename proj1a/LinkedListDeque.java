@@ -1,4 +1,4 @@
-public class LinkedListDeque<Item>{
+public class LinkedListDeque<T>{
     private SList first_sentinel;
     private SList last_sentinel;
     private int size;
@@ -11,14 +11,14 @@ public class LinkedListDeque<Item>{
         size = 0;
     }
 
-    public void addFirst(Item i) {
+    public void addFirst(T i) {
         SList node = new SList(i , first_sentinel.next , first_sentinel);
         first_sentinel.next.pre = node;
         first_sentinel.next = node;
         size += 1;
     }
 
-    public void addLast(Item i) {
+    public void addLast(T i) {
         SList node = new SList(i , last_sentinel , last_sentinel.pre);
         last_sentinel.pre.next = node;
         last_sentinel.pre = node;
@@ -39,18 +39,18 @@ public class LinkedListDeque<Item>{
         }else {
             SList p = first_sentinel.next;
             while (p != last_sentinel) {
-                System.out.print(p.item+" ");
+                System.out.print(p.T+" ");
                 p = p.next;
             }
             System.out.println();
         }
     }
 
-    public Item removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }else {
-            Item p = (Item) first_sentinel.next.item;
+            T p = (T) first_sentinel.next.T;
             first_sentinel.next.next.pre = first_sentinel;
             first_sentinel.next = first_sentinel.next.next;
             size -= 1;
@@ -58,11 +58,11 @@ public class LinkedListDeque<Item>{
         }
     }
 
-    public Item removeLast() {
+    public T removeLast() {
         if (size == 0) {
             return null;
         }else {
-            Item p = (Item)last_sentinel.pre.item;
+            T p = (T)last_sentinel.pre.T;
             last_sentinel.pre.pre.next = last_sentinel;
             last_sentinel.pre = last_sentinel.pre.pre;
             size -= 1;
@@ -70,7 +70,7 @@ public class LinkedListDeque<Item>{
         }
     }
 
-    public Item get(int index) {
+    public T get(int index) {
         if (index > size-1) {
             return null;
         }
@@ -81,14 +81,14 @@ public class LinkedListDeque<Item>{
             i += 1;
         }
 
-        return (Item)p.item;
+        return (T)p.T;
     }
 
-    public Item getRecursive(int index){
+    public T getRecursive(int index){
         if (index > size - 1) {
             return null;
         }else {
-            return (Item) first_sentinel.next.get(index);
+            return (T) first_sentinel.next.get(index);
         }
     }
 }
