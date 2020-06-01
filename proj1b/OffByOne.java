@@ -6,12 +6,4 @@ public class OffByOne implements CharacterComparator{
     public boolean equalChars(char x, char y){
         return (Math.abs(x-y) == 1);
     }
-
-    @Test
-    public void testequalChars(){
-        OffByOne offByOne = new OffByOne();
-        assertTrue(offByOne.equalChars('a', 'b'));
-        assertFalse(offByOne.equalChars('a', 'B'));
-        assertFalse(offByOne.equalChars('a', 'k'));
-    }
 }
