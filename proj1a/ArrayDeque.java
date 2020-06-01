@@ -94,15 +94,14 @@ public class ArrayDeque<Item> {
 
         int currentFirst = onePlus(nextFirst);
         Item t = items[currentFirst];
+        size -= 1;
+        nextFirst = currentFirst;
 
-        double ratio = size / items.length;
+        double ratio = (double)size / items.length;
         if (ratio < 0.25 && items.length > 16) {
             //resize
             resize(size / 2);
         }
-
-        size -= 1;
-        nextFirst = currentFirst;
 
         return t;
     }
@@ -114,15 +113,14 @@ public class ArrayDeque<Item> {
 
         int currentLast = oneMinus(nextLast);
         Item t = items[currentLast];
+        size -= 1;
+        nextLast = currentLast;
 
-        double ratio = size / items.length;
+        double ratio = (double)size / items.length;
         if (ratio < 0.25 && items.length >= 16) {
             //resize
             resize(size / 2);
         }
-
-        size -= 1;
-        nextLast = currentLast;
 
         return t;
     }
