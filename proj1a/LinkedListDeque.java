@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> {
+public class LinkedListDeque<Item>{
     private SList first_sentinel;
     private SList last_sentinel;
     private int size;
@@ -11,14 +11,14 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public void addFirst(T i) {
+    public void addFirst(Item i) {
         SList node = new SList(i , first_sentinel.next , first_sentinel);
         first_sentinel.next.pre = node;
         first_sentinel.next = node;
         size += 1;
     }
 
-    public void addLast(T i) {
+    public void addLast(Item i) {
         SList node = new SList(i , last_sentinel , last_sentinel.pre);
         last_sentinel.pre.next = node;
         last_sentinel.pre = node;
@@ -46,11 +46,11 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T removeFirst() {
+    public Item removeFirst() {
         if (size == 0) {
             return null;
         }else {
-            T p = (T) first_sentinel.next.item;
+            Item p = (Item) first_sentinel.next.item;
             first_sentinel.next.next.pre = first_sentinel;
             first_sentinel.next = first_sentinel.next.next;
             size -= 1;
@@ -58,11 +58,11 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T removeLast() {
+    public Item removeLast() {
         if (size == 0) {
             return null;
         }else {
-            T p = (T)last_sentinel.pre.item;
+            Item p = (Item)last_sentinel.pre.item;
             last_sentinel.pre.pre.next = last_sentinel;
             last_sentinel.pre = last_sentinel.pre.pre;
             size -= 1;
@@ -70,7 +70,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T get(int index) {
+    public Item get(int index) {
         if (index > size-1) {
             return null;
         }
@@ -81,14 +81,14 @@ public class LinkedListDeque<T> {
             i += 1;
         }
 
-        return (T)p.item;
+        return (Item)p.item;
     }
 
-    public T getRecursive(int index){
+    public Item getRecursive(int index){
         if (index > size - 1) {
             return null;
         }else {
-            return (T) first_sentinel.next.get(index);
+            return (Item) first_sentinel.next.get(index);
         }
     }
 }
