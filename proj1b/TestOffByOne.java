@@ -8,12 +8,37 @@ public class TestOffByOne {
     static CharacterComparator offByOne = new OffByOne();
 
     // Your tests go here.
-//    Uncomment this class once you've created your CharacterComparator interface and OffByOne class.
+    @Test
+    public void testEqualsCharLower() {
+        assertFalse(offByOne.equalChars('a', 'a'));
+        assertTrue(offByOne.equalChars('a', 'b'));
+        assertTrue(offByOne.equalChars('b', 'a'));
+        assertFalse(offByOne.equalChars('a', 'c'));
+        assertFalse(offByOne.equalChars('c', 'a'));
+    }
 
     @Test
-    private void testequalChars(){
-        assertTrue(offByOne.equalChars('a', 'b'));
-        assertFalse(offByOne.equalChars('a', 'B'));
-        assertFalse(offByOne.equalChars('a', 'k'));
+    public void testEqualsCharUpper() {
+        assertFalse(offByOne.equalChars('A', 'A'));
+        assertTrue(offByOne.equalChars('A', 'B'));
+        assertTrue(offByOne.equalChars('B', 'A'));
+        assertFalse(offByOne.equalChars('A', 'C'));
+        assertFalse(offByOne.equalChars('C', 'A'));
     }
+
+    @Test
+    public void testEqualsCharNonAlphabet() {
+        assertTrue(offByOne.equalChars('%', '&'));
+        assertTrue(offByOne.equalChars('&', '%'));
+        assertFalse(offByOne.equalChars('$', '&'));
+        assertFalse(offByOne.equalChars('&', '$'));
+    }
+
+    @Test
+    public void testEqualsCharMixed() {
+        assertFalse(offByOne.equalChars('a', 'A'));
+        assertFalse(offByOne.equalChars('a', '%'));
+        assertFalse(offByOne.equalChars('A', '%'));
+    }
+
 }
