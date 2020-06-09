@@ -15,20 +15,23 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /* iterator class */
     public class BoundedQueueIterator implements Iterator<T> {
         private int ptr;
+        private int numremain;
 
         public BoundedQueueIterator() {
             ptr = first;
+            numremain = fillCount();
         }
 
         @Override
         public boolean hasNext() {
-            return (ptr != last);
+            return (numremain != 0);
         }
 
         @Override
         public T next() {
             T r = rb[ptr];
             ptr = (ptr + 1) % capacity;
+            numremain -= 1;
             return r;
         }
     }
@@ -73,13 +76,13 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     @Override
     public T dequeue() {
-        // TODO: Dequeue the first item. Don't forget to decrease fillCount and update
+        // TODO: Dequeue the first item. Don't forget to decrease fillCount and update first.
         if (isEmpty()) {
             //抛出异常
             throw new RuntimeException("Ring Buffer Underflow");
         }
         T r = rb[first];
-        first = (first + capacity - 1) % capacity;
+        first = (first + 1) % capacity;
         fillCount -= 1;
         return r;
     }
