@@ -385,9 +385,13 @@ public class MapGenerator {
         int w = 80;
         int h = 40;
 
+        String input = args[0];
+//        input += "L";
+        long seed = Long.parseLong(input);
+
         TERenderer teRenderer = new TERenderer();
         teRenderer.initialize(w, h);
-        MapGenerator m = new MapGenerator(w, h, 40, 5, 23333);
+        MapGenerator m = new MapGenerator(w, h, 40, 5, seed);
         TETile[][] world = m.generate();
         teRenderer.renderFrame(world);
 
