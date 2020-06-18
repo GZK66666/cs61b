@@ -38,13 +38,14 @@ public class MapGenerator {
     }
 
     /*constructor with seed*/
-    MapGenerator(int width, int height, int initialX, int initialY, long seed) {
+    MapGenerator(int width, int height, int initialX, int initialY, String seed) {
 
         this.width = width;
         this.height = height;
         initialPosition = new Position(initialX, initialY);
         playerPosition = new Position(initialX, initialY + 1);
-        random = new Random(seed);
+        long seed1 = Long.parseLong(seed);
+        random = new Random(seed1);
 
     }
 
@@ -385,13 +386,9 @@ public class MapGenerator {
         int w = 80;
         int h = 40;
 
-        String input = args[0];
-//        input += "L";
-        long seed = Long.parseLong(input);
-
         TERenderer teRenderer = new TERenderer();
         teRenderer.initialize(w, h);
-        MapGenerator m = new MapGenerator(w, h, 40, 5, seed);
+        MapGenerator m = new MapGenerator(w, h, 40, 5, args[0]);
         TETile[][] world = m.generate();
         teRenderer.renderFrame(world);
 

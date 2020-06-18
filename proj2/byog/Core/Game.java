@@ -54,7 +54,7 @@ public class Game {
     }
 
     /* receive the random seed from user input */
-    private int randomSeed() {
+    private String randomSeed() {
 
         //接受随机数
         Font font = new Font("Monaco", Font.BOLD, 15);
@@ -80,12 +80,12 @@ public class Game {
             inputChar = StdDraw.nextKeyTyped();
         }
 
-        return Integer.valueOf(input.substring(1, input.length()));
+        return input.substring(1, input.length());
 
     }
 
     /* random generate the initial world */
-    private void generateInitialWorldByKeyword(int seed) {
+    private void generateInitialWorldByKeyword(String seed) {
 
         MapGenerator map = new MapGenerator(WIDTH, HEIGHT, 40, 5, seed);
         world = map.generate();
@@ -292,7 +292,7 @@ public class Game {
 
         while (!StdDraw.hasNextKeyTyped()){}
         char input = StdDraw.nextKeyTyped();
-        int seed;
+        String seed;
 
         if (input == 'n') {
             this.input += String.valueOf(input);
@@ -380,8 +380,7 @@ public class Game {
             }
         }
 
-        int seed = Integer.valueOf(input.substring(1, i));
-        MapGenerator map = new MapGenerator(WIDTH, HEIGHT, 40, 5, seed);
+        MapGenerator map = new MapGenerator(WIDTH, HEIGHT, 40, 5, input.substring(1, i));
         playerPosition = map.playerPosition;
         world = map.generate();
 
