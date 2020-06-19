@@ -38,14 +38,13 @@ public class MapGenerator {
     }
 
     /*constructor with seed*/
-    MapGenerator(int width, int height, int initialX, int initialY, String seed) {
+    MapGenerator(int width, int height, int initialX, int initialY, long seed) {
 
         this.width = width;
         this.height = height;
         initialPosition = new Position(initialX, initialY);
         playerPosition = new Position(initialX, initialY + 1);
-        long seed1 = Long.parseLong(seed);
-        random = new Random(seed1);
+        random = new Random(seed);
 
     }
 
@@ -124,7 +123,7 @@ public class MapGenerator {
     }
 
     /* return a new room on the north position based on a entrance if available, otherwise return null
-    * 其实就是给定一个入口和长宽，随机生成一个房间的左下角和右下角的位置 */
+     * 其实就是给定一个入口和长宽，随机生成一个房间的左下角和右下角的位置 */
     private Position[] randomPositionNorth(int w, int h, Position entrance) {
 
         int leftBottomX = entrance.x - random.nextInt(w) - 1; // 为什么要-1？？？
@@ -386,9 +385,11 @@ public class MapGenerator {
         int w = 80;
         int h = 40;
 
+        long seed = Long.parseLong(args[0]);
+
         TERenderer teRenderer = new TERenderer();
         teRenderer.initialize(w, h);
-        MapGenerator m = new MapGenerator(w, h, 40, 5, args[0]);
+        MapGenerator m = new MapGenerator(w, h, 40, 5, seed);
         TETile[][] world = m.generate();
         teRenderer.renderFrame(world);
 
