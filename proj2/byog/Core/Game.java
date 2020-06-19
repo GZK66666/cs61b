@@ -140,7 +140,7 @@ public class Game {
             map = new MapGenerator(WIDTH, HEIGHT, ENTRYX, ENTRYY);
         }else {
             long seed = Long.parseLong(seedString);
-            map = new MapGenerator(WIDTH, HEIGHT, ENTRYX, ENTRYX, seed);
+            map = new MapGenerator(WIDTH, HEIGHT, ENTRYX, ENTRYY, seed);
         }
 
         world = map.generate();
