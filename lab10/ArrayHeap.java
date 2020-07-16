@@ -188,8 +188,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         swap(1, size);
         contents[size] = null;
-        sink(1);
         size -= 1;
+        sink(1);
 
         return min;
     }
@@ -219,6 +219,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             if (contents[i].item().equals(item)) {
                 contents[i] = new Node(item, priority);
                 index = i;
+                break;
             }
         }
 
@@ -226,7 +227,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             return;
         }
 
-        if (contents[index].priority() < contents[parentIndex(index)].priority()) {
+        if (getNode(parentIndex(index)) != null && getNode(index).priority() < getNode(parentIndex(index)).priority()) {
             swim(index);
             return;
         }
