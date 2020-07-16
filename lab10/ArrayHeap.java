@@ -130,16 +130,31 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        int minChild = min(leftIndex(index), rightIndex(index));
-        Node minNode = getNode(minChild);
-
-        if (minNode == null) {
-            return;
-        }
-
-        if (minNode.priority() < getNode(index).priority()) {
-            swap(minChild, index);
-            sink(minChild);
+        int left, right;
+        left = leftIndex(index);
+        right = rightIndex(index);
+        if (left > size) {
+            if (right > size){
+                return;
+            }else {
+                if (min(index, right) == right) {
+                    swap(index, right);
+                    sink(right);
+                }
+            }
+        }else {
+            if (right > size) {
+                if (min(index, left) == left) {
+                    swap(index, left);
+                    sink(left);
+                }
+            }else {
+                int minIndex = min(left, right);
+                if (min(index, minIndex) == minIndex) {
+                    swap(index, minIndex);
+                    sink(minIndex);
+                }
+            }
         }
 
     }
