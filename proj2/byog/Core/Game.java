@@ -100,6 +100,7 @@ public class Game {
                         System.out.println("Invalid input given: " + input);
                         System.exit(0);
                     }
+                    break;
             }
         }else {
             switch (input) {
